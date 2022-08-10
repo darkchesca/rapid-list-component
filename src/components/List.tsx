@@ -51,45 +51,34 @@ const rows = [
     createData('Lollipop', 392, 0.2, 98, 0.0),
     createData('Marshmallow', 318, 0, 81, 2.0),
     createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
+    createData('Oreo 1', 437, 18.0, 63, 4.0),
+    createData('Oreo 2', 437, 18.0, 63, 4.0),
+    createData('Oreo 3', 437, 18.0, 63, 4.0),
+    createData('Oreo 4', 437, 18.0, 63, 4.0),
+    createData('Bla', 437, 18.0, 63, 4.0),
+    createData('A', 437, 18.0, 63, 4.0),
+    createData('B', 437, 18.0, 63, 4.0),
+    createData('C', 437, 18.0, 63, 4.0),
+    createData('D', 437, 18.0, 63, 4.0),
+    createData('E', 437, 18.0, 63, 4.0),
+    createData('F', 437, 18.0, 63, 4.0),
+    createData('G', 437, 18.0, 63, 4.0),
+    createData('La', 437, 18.0, 63, 4.0),
+    createData('Luna', 437, 18.0, 63, 4.0),
+    createData('Torta', 437, 18.0, 63, 4.0),
+    createData('Zero', 437, 18.0, 63, 4.0),
+    createData('Biscotti', 437, 18.0, 63, 4.0),
+    createData('Car', 437, 18.0, 63, 4.0),
+    createData('Pen', 437, 18.0, 63, 4.0),
+    createData('I', 437, 18.0, 63, 4.0),
+    createData('H', 437, 18.0, 63, 4.0),
+    createData('Hw', 437, 18.0, 63, 4.0),
+    createData('Hv', 437, 18.0, 63, 4.0),
+    createData('Hm', 437, 18.0, 63, 4.0),
+    createData('Hl', 437, 18.0, 63, 4.0),
+    createData('Ho', 437, 18.0, 63, 4.0),
+    createData('H00', 437, 18.0, 63, 4.0),
+    createData('H43', 437, 18.0, 63, 4.0),
 ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
@@ -99,6 +88,7 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] > a[orderBy]) {
         return 1;
     }
+
     return 0;
 }
 
@@ -125,8 +115,10 @@ function stableSort<T>(array: readonly T[], comparator: (a: T, b: T) => number) 
         if (order !== 0) {
             return order;
         }
+
         return a[1] - b[1];
     });
+
     return stabilizedThis.map((el) => el[0]);
 }
 
@@ -180,12 +172,12 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-        props;
-    const createSortHandler =
-        (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
-            onRequestSort(event, property);
-        };
+    const {
+        onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,
+    } = props;
+    const createSortHandler = (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+        onRequestSort(event, property);
+    };
 
     return (
         <TableHead>
@@ -231,7 +223,7 @@ interface EnhancedTableToolbarProps {
     numSelected: number;
 }
 
-const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
+function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     const { numSelected } = props;
 
     return (
@@ -240,8 +232,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
                 ...(numSelected > 0 && {
-                    bgcolor: (theme) =>
-                        alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                    bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
                 }),
             }}
         >
@@ -251,11 +242,13 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 variant="subtitle1"
                 component="div"
             >
-                selected: {numSelected}
+                selected:
+                {' '}
+                {numSelected}
             </Typography>
         </Toolbar>
     );
-};
+}
 
 export default function EnhancedTable() {
     const [order, setOrder] = React.useState<Order>('asc');
@@ -275,6 +268,7 @@ export default function EnhancedTable() {
         if (event.target.checked) {
             const newSelected = rows.map((n) => n.name);
             setSelected(newSelected);
+
             return;
         }
         setSelected([]);
@@ -302,14 +296,17 @@ export default function EnhancedTable() {
 
     const isSelected = (name: string) => selected.indexOf(name) !== -1;
 
-
     return (
         <Box sx={{ width: '100%' }}>
-            <Paper sx={{ width: '100%', mb: 2, height: 750, overflow: "scroll" }}>
+            <Paper sx={{
+                width: '100%', mb: 2, height: 750, overflow: 'scroll',
+            }}
+            >
                 <EnhancedTableToolbar numSelected={selected.length} />
                 <TableContainer>
                     <Table
-                        stickyHeader aria-label="sticky table"
+                        stickyHeader
+                        aria-label="sticky table"
                         sx={{ minWidth: 750 }}
                         aria-labelledby="tableTitle"
                         size="small"
@@ -324,43 +321,43 @@ export default function EnhancedTable() {
                         />
                         <TableBody>
                             {stableSort(rows, getComparator(order, orderBy)).map((row, index) => {
-                                    const isItemSelected = isSelected(row.name);
-                                    const labelId = `enhanced-table-checkbox-${index}`;
+                                const isItemSelected = isSelected(row.name);
+                                const labelId = `enhanced-table-checkbox-${index}`;
 
-                                    return (
-                                        <TableRow
-                                            hover
-                                            onClick={(event) => handleClick(event, row.name)}
-                                            role="checkbox"
-                                            aria-checked={isItemSelected}
-                                            tabIndex={-1}
-                                            key={row.name}
-                                            selected={isItemSelected}
+                                return (
+                                    <TableRow
+                                        hover
+                                        onClick={(event) => handleClick(event, row.name)}
+                                        role="checkbox"
+                                        aria-checked={isItemSelected}
+                                        tabIndex={-1}
+                                        key={row.name}
+                                        selected={isItemSelected}
+                                    >
+                                        <TableCell padding="checkbox">
+                                            <Checkbox
+                                                color="primary"
+                                                checked={isItemSelected}
+                                                inputProps={{
+                                                    'aria-labelledby': labelId,
+                                                }}
+                                            />
+                                        </TableCell>
+                                        <TableCell
+                                            component="th"
+                                            id={labelId}
+                                            scope="row"
+                                            padding="none"
                                         >
-                                            <TableCell padding="checkbox">
-                                                <Checkbox
-                                                    color="primary"
-                                                    checked={isItemSelected}
-                                                    inputProps={{
-                                                        'aria-labelledby': labelId,
-                                                    }}
-                                                />
-                                            </TableCell>
-                                            <TableCell
-                                                component="th"
-                                                id={labelId}
-                                                scope="row"
-                                                padding="none"
-                                            >
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.calories}</TableCell>
-                                            <TableCell align="right">{row.fat}</TableCell>
-                                            <TableCell align="right">{row.carbs}</TableCell>
-                                            <TableCell align="right">{row.protein}</TableCell>
-                                        </TableRow>
-                                    );
-                                })}
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.calories}</TableCell>
+                                        <TableCell align="right">{row.fat}</TableCell>
+                                        <TableCell align="right">{row.carbs}</TableCell>
+                                        <TableCell align="right">{row.protein}</TableCell>
+                                    </TableRow>
+                                );
+                            })}
                         </TableBody>
                     </Table>
                 </TableContainer>

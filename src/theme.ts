@@ -3,20 +3,20 @@ import { red } from '@mui/material/colors';
 
 // A custom theme for this app
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1d4371',
+    palette: {
+        primary: {
+            main: '#1d4371',
+        },
+        secondary: {
+            main: '#19857b',
+        },
+        error: {
+            main: red.A400,
+        },
     },
-    secondary: {
-      main: '#19857b',
+    typography: {
+        fontFamily: 'lato,sans-serif',
     },
-    error: {
-      main: red.A400,
-    },
-  },
-  typography: {
-    fontFamily: "lato,sans-serif"
-  }
 });
 
 export default theme;
