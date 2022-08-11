@@ -5,7 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CssBaseline } from '@mui/material';
-import StickyHeadTable from './components/List';
+import List from './components/List';
 
 /**
  * @name App
@@ -26,7 +26,7 @@ export default function App() {
             <Toolbar />
             <Container>
                 <Box sx={{ p: 1 }}>
-                    <StickyHeadTable />
+                    <List />
                 </Box>
             </Container>
         </Container>
