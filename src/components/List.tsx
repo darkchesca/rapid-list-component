@@ -232,7 +232,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
                 ...(numSelected > 0 && {
-                    bgcolor: (theme) => alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+                    bgcolor: (theme) => alpha(
+                        theme.palette.primary.main,
+                        theme.palette.action.activatedOpacity,
+                    ),
                 }),
             }}
         >
