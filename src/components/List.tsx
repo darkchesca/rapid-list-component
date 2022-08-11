@@ -34,10 +34,9 @@ interface EnhancedTableProps {
     rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
-    const {
-        onSelectAllClick, numSelected, rowCount,
-    } = props;
+function EnhancedTableHead({
+    onSelectAllClick, numSelected, rowCount,
+}: EnhancedTableProps) {
 
     return (
         <TableHead>
@@ -68,18 +67,16 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 }
 
 interface EnhancedTableToolbarProps {
-    numSelected: number;
+    indexes: number[];
 }
 
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-    const { numSelected } = props;
-
+function EnhancedTableToolbar({ indexes }: EnhancedTableToolbarProps) {
     return (
         <Toolbar
             sx={{
                 pl: { sm: 2 },
                 pr: { xs: 1, sm: 1 },
-                ...(numSelected > 0 && {
+                ...(indexes.length > 0 && {
                     bgcolor: (theme) => alpha(
                         theme.palette.primary.main,
                         theme.palette.action.activatedOpacity,
@@ -87,16 +84,16 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
                 }),
             }}
         >
-            <Typography
-                sx={{ flex: '1 1 100%' }}
-                color="inherit"
-                variant="subtitle1"
-                component="div"
-            >
-                selected:
-                {' '}
-                {numSelected}
-            </Typography>
+            <Box sx={{ overflowWrap: 'anywhere', minHeight: 120 }}>
+                <Typography
+                    sx={{ flex: '1 1 100%' }}
+                    color="inherit"
+                    variant="subtitle1"
+                    component="div"
+                >
+                    {`Selected items: ${indexes.toString()}`}
+                </Typography>
+            </Box>
         </Toolbar>
     );
 }
@@ -108,39 +105,34 @@ interface ListProps {
 
 export default function List({ data, infoCell }: ListProps) {
     const rows = React.useMemo(() => data, [data]);
-    const [selected, setSelected] = React.useState<readonly string[]>([]);
+    const [selectedIndexes, setSelectedIndexes] = React.useState<number[]>([]);
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.name);
-            setSelected(newSelected);
+            const newSelected = rows.map((n, index) => index);
+            setSelectedIndexes(newSelected);
 
             return;
         }
-        setSelected([]);
+        setSelectedIndexes([]);
     };
 
-    const handleClick = (event: React.MouseEvent<unknown>, name: string) => {
-        const selectedIndex = selected.indexOf(name);
-        let newSelected: readonly string[] = [];
+    const handleClick = (event: React.MouseEvent<unknown>, index: number) => {
+        const newVal = index;
+        let selectedValues: number[] = [];
+        // if selected has this value deselect element
+        if (selectedIndexes.includes(newVal)) {
+            selectedValues = selectedIndexes.filter((el) => el !== newVal);
+            setSelectedIndexes(selectedValues.sort());
 
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, name);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1),
-            );
+            // else add it to the selected options
+        } else {
+            selectedValues = [...selectedIndexes, newVal];
+            setSelectedIndexes(selectedValues.sort());
         }
-
-        setSelected(newSelected);
     };
 
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
+    const isSelected = (index: number) => selectedIndexes.indexOf(index) !== -1;
 
     return (
         <Box sx={{ width: '100%' }}>
@@ -148,7 +140,9 @@ export default function List({ data, infoCell }: ListProps) {
                 width: '100%', mb: 2, overflow: 'hidden',
             }}
             >
-                <EnhancedTableToolbar numSelected={selected.length} />
+                <EnhancedTableToolbar
+                    indexes={selectedIndexes}
+                />
                 <TableContainer sx={{ maxHeight: 750 }}>
                     <Table
                         stickyHeader
@@ -158,19 +152,19 @@ export default function List({ data, infoCell }: ListProps) {
                         size="small"
                     >
                         <EnhancedTableHead
-                            numSelected={selected.length}
+                            numSelected={selectedIndexes.length}
                             onSelectAllClick={handleSelectAllClick}
                             rowCount={rows.length}
                         />
                         <TableBody>
                             {rows.map((row, index) => {
-                                const isItemSelected = isSelected(row.name);
+                                const isItemSelected = isSelected(index);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
                                     <TableRow
                                         hover
-                                        onClick={(event) => handleClick(event, row.name)}
+                                        onClick={(event) => handleClick(event, index)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
