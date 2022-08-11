@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { CssBaseline } from '@mui/material';
 import List from './components/List';
+import { makeData } from './utils';
 
 /**
  * @name App
@@ -13,6 +14,17 @@ import List from './components/List';
  * */
 
 export default function App() {
+    const data = makeData(100, false);
+    const render = (row:any) => {
+        const values = Object.values(row);
+
+        return (
+            <React.Fragment>
+                {values.map((value: any) => <p key={value}>{value}</p>)}
+            </React.Fragment>
+        );
+    };
+
     return (
         <Container>
             <CssBaseline />
@@ -26,7 +38,7 @@ export default function App() {
             <Toolbar />
             <Container>
                 <Box sx={{ p: 1 }}>
-                    <List />
+                    <List data={data} infoCell={render} />
                 </Box>
             </Container>
         </Container>

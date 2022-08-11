@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
@@ -13,73 +13,18 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 
 interface Data {
-    info: string;
+    name: string;
 }
-
-function createData(
-    info: string,
-): Data {
-    return {
-        info,
-    };
-}
-
-const rows = [
-    createData('Cupcake'),
-    createData('Donut'),
-    createData('Eclair'),
-    createData('Frozen yoghurt'),
-    createData('Gingerbread'),
-    createData('Honeycomb'),
-    createData('Ice cream sandwich'),
-    createData('Jelly Bean'),
-    createData('KitKat'),
-    createData('Lollipop'),
-    createData('Marshmallow'),
-    createData('Nougat'),
-    createData('Oreo 1'),
-    createData('Oreo 2'),
-    createData('Oreo 3'),
-    createData('Oreo 4'),
-    createData('Bla'),
-    createData('A'),
-    createData('B'),
-    createData('C'),
-    createData('D'),
-    createData('E'),
-    createData('F'),
-    createData('G'),
-    createData('La'),
-    createData('Luna'),
-    createData('Torta'),
-    createData('Zero'),
-    createData('Biscotti'),
-    createData('Car'),
-    createData('Pen'),
-    createData('I'),
-    createData('H'),
-    createData('Hw'),
-    createData('Hv'),
-    createData('Hm'),
-    createData('Hl'),
-    createData('Ho'),
-    createData('H00'),
-    createData('H43'),
-];
 
 interface HeadCell {
-    disablePadding: boolean;
     id: keyof Data;
     label: string;
-    numeric: boolean;
 }
 
 const headCells: readonly HeadCell[] = [
     {
-        id: 'info',
-        numeric: false,
-        disablePadding: true,
-        label: 'Info',
+        id: 'name',
+        label: 'INFO',
     },
 ];
 
@@ -111,8 +56,8 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                 {headCells.map((headCell) => (
                     <TableCell
                         key={headCell.id}
-                        align={headCell.numeric ? 'right' : 'left'}
-                        padding={headCell.disablePadding ? 'none' : 'normal'}
+                        align="left"
+                        padding="normal"
                     >
                         {headCell.label}
                     </TableCell>
@@ -156,12 +101,18 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
     );
 }
 
-export default function EnhancedTable() {
+interface ListProps {
+    data: any[],
+    infoCell: Function
+}
+
+export default function List({ data, infoCell }: ListProps) {
+    const rows = React.useMemo(() => data, [data]);
     const [selected, setSelected] = React.useState<readonly string[]>([]);
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.checked) {
-            const newSelected = rows.map((n) => n.info);
+            const newSelected = rows.map((n) => n.name);
             setSelected(newSelected);
 
             return;
@@ -213,17 +164,17 @@ export default function EnhancedTable() {
                         />
                         <TableBody>
                             {rows.map((row, index) => {
-                                const isItemSelected = isSelected(row.info);
+                                const isItemSelected = isSelected(row.name);
                                 const labelId = `enhanced-table-checkbox-${index}`;
 
                                 return (
                                     <TableRow
                                         hover
-                                        onClick={(event) => handleClick(event, row.info)}
+                                        onClick={(event) => handleClick(event, row.name)}
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={row.info}
+                                        key={`${row.name}-${row.phone}`}
                                         selected={isItemSelected}
                                     >
                                         <TableCell padding="checkbox">
@@ -241,7 +192,7 @@ export default function EnhancedTable() {
                                             scope="row"
                                             padding="none"
                                         >
-                                            {row.info}
+                                            {infoCell(row)}
                                         </TableCell>
                                     </TableRow>
                                 );
