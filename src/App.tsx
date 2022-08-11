@@ -15,11 +15,12 @@ import { makeData } from './utils';
 
 export default function App() {
     const data = makeData(100, false);
-    const render = (row:any) => {
+    const render = (row:object) => {
         const values = Object.values(row);
 
         return (
             <React.Fragment>
+                {/* value can be  string or number depending on object */}
                 {values.map((value: any) => <p key={value}>{value}</p>)}
             </React.Fragment>
         );

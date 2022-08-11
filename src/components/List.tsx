@@ -12,22 +12,6 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 
-interface Data {
-    name: string;
-}
-
-interface HeadCell {
-    id: keyof Data;
-    label: string;
-}
-
-const headCells: readonly HeadCell[] = [
-    {
-        id: 'name',
-        label: 'INFO',
-    },
-];
-
 interface EnhancedTableProps {
     numSelected: number;
     onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -37,7 +21,6 @@ interface EnhancedTableProps {
 function EnhancedTableHead({
     onSelectAllClick, numSelected, rowCount,
 }: EnhancedTableProps) {
-
     return (
         <TableHead>
             <TableRow>
@@ -52,15 +35,12 @@ function EnhancedTableHead({
                         }}
                     />
                 </TableCell>
-                {headCells.map((headCell) => (
-                    <TableCell
-                        key={headCell.id}
-                        align="left"
-                        padding="normal"
-                    >
-                        {headCell.label}
-                    </TableCell>
-                ))}
+                <TableCell
+                    align="left"
+                    padding="normal"
+                >
+                    INFO
+                </TableCell>
             </TableRow>
         </TableHead>
     );
@@ -99,12 +79,19 @@ function EnhancedTableToolbar({ indexes }: EnhancedTableToolbarProps) {
 }
 
 interface ListProps {
-    data: any[],
+    data: object[],
     infoCell: Function
 }
 
+/**
+ * @name List
+ * @description list component displaying a table that contains data object info
+ * */
+
 export default function List({ data, infoCell }: ListProps) {
+    // table rows
     const rows = React.useMemo(() => data, [data]);
+    // row indexes to be displayed in header
     const [selectedIndexes, setSelectedIndexes] = React.useState<number[]>([]);
 
     const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,7 +104,9 @@ export default function List({ data, infoCell }: ListProps) {
         setSelectedIndexes([]);
     };
 
+    // handle row click
     const handleClick = (event: React.MouseEvent<unknown>, index: number) => {
+        // index of row clicked
         const newVal = index;
         let selectedValues: number[] = [];
         // if selected has this value deselect element
@@ -160,6 +149,7 @@ export default function List({ data, infoCell }: ListProps) {
                             {rows.map((row, index) => {
                                 const isItemSelected = isSelected(index);
                                 const labelId = `enhanced-table-checkbox-${index}`;
+                                const key = Object.values(row).toString();
 
                                 return (
                                     <TableRow
@@ -168,7 +158,7 @@ export default function List({ data, infoCell }: ListProps) {
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         tabIndex={-1}
-                                        key={`${row.name}-${row.phone}`}
+                                        key={key}
                                         selected={isItemSelected}
                                     >
                                         <TableCell padding="checkbox">
