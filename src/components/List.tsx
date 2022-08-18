@@ -108,16 +108,16 @@ export default function List({ data, infoCell }: ListProps) {
     const handleClick = (event: React.MouseEvent<unknown>, index: number) => {
         // index of row clicked
         const newVal = index;
-        let selectedValues: number[] = [];
+        let selectedValues: number[];
         // if selected has this value deselect element
         if (selectedIndexes.includes(newVal)) {
             selectedValues = selectedIndexes.filter((el) => el !== newVal);
-            setSelectedIndexes(selectedValues.sort());
+            setSelectedIndexes(selectedValues.sort((a, b) => a - b));
 
             // else add it to the selected options
         } else {
             selectedValues = [...selectedIndexes, newVal];
-            setSelectedIndexes(selectedValues.sort());
+            setSelectedIndexes(selectedValues.sort((a, b) => a - b));
         }
     };
 
