@@ -170,14 +170,7 @@ export default function List({ data, infoCell }: ListProps) {
                                                 }}
                                             />
                                         </TableCell>
-                                        <TableCell
-                                            component="th"
-                                            id={labelId}
-                                            scope="row"
-                                            padding="none"
-                                        >
-                                            {infoCell(row)}
-                                        </TableCell>
+                                        {infoCell(row)}
                                     </TableRow>
                                 );
                             })}
